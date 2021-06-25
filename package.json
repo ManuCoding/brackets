@@ -1,12 +1,22 @@
 {
-	"name": "brackets",
+	"name": "js-brackets",
 	"version": "1.0.0",
-	"description": "",
+	"description": "Write JavaScript with only square brackets!",
 	"main": "brackets.js",
-	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1"
+	"keywords": [
+		"js-brackets",
+		"js-limits",
+		"esolang",
+		"js"
+	],
+	"author": "Emmanuel Caouette",
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/ManuCoding/brackets.git"
 	},
-	"keywords": [],
-	"author": "",
-	"license": "ISC"
+	"bugs": {
+		"url": "https://github.com/ManuCoding/brackets/issues"
+	},
+	"homepage": "https://github.com/ManuCoding/brackets#readme"
 }
