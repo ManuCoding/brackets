@@ -7,6 +7,7 @@ function isalnum(c) {
 class A {
 	constructor() {
 		this.atlas=[];
+		C.mode=0;
 	}
 	get [""]() {
 		return new B(this.atlas);
@@ -34,7 +35,7 @@ class B {
 		return this.N;
 	}
 	get N() {
-		if(isalnum(this.s[this.s.length-2])) this.s+=" ";
+		if(isalnum(this.s[this.s.length-1])) this.s+=" ";
 		this.s+=B.atlas[C.n];
 		return this;
 	}
@@ -42,6 +43,7 @@ class B {
 
 class C {
 	static mode=0;
+	static n=0;
 	static s="";
 	constructor(arr) {
 		this.arr=arr;
@@ -104,7 +106,7 @@ Array.prototype.toString=function() {
 Object.defineProperty(Array.prototype,"",{
 	get() {
 		if(this.length==0) return new C(this);
-		if(this.length==1 && this[0] instanceof A) return new B(this[(C.mode=1)&2].atlas);
+		if(this.length==1 && this[0] instanceof A) return new B(this[(C.n=-1,C.mode=1)&2].atlas);
 	}
 });
 
@@ -136,6 +138,18 @@ function brackets(str="") {
 				tokens.push(str.substring(starti,i));
 				i--;
 				break;
+			case str[i]=="/" && str[i+1]=="/":
+				while(i<str.length && str[i]!="\n") i++;
+				break;
+			case str[i]=='"':
+				var starti=i;
+				i++;
+				while(i<str.length && str[i]!='"') {
+					if(str[i]=="\\") i++;
+					i++;
+				}
+				tokens.push(str.substring(starti,i+1));
+				break;
 			case str[i]==" ":
 			case str[i]=="\t":
 			case str[i]=="\n":
@@ -156,10 +170,15 @@ function brackets(str="") {
 		}
 		indexes.push(atlas.push(tokens[i])-1);
 	}
+	console.log({indexes,atlas});
+	var lastidx=-1;
 	return "[[][[[]]]["+
 		atlas.map(encodestr).join("][")+
 		"]][[]]["+
-		indexes.map(encodenum).join("][")+
+		indexes.map(idx => {
+			if(lastidx+1==idx) return "[[]]";
+			return encodenum(idx);
+		}).join("][")+
 		"][[]]";
 }
 
