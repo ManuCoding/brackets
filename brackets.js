@@ -176,7 +176,9 @@ function brackets(str="") {
 		atlas.map(encodestr).join("][")+
 		"]][[]]["+
 		indexes.map(idx => {
-			if(lastidx+1==idx) return "[[]]";
+			var lastidx_=lastidx;
+			lastidx=idx;
+			if(lastidx_+1==idx) return "[[]]";
 			return encodenum(idx);
 		}).join("][")+
 		"][[]]";
